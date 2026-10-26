@@ -1,5 +1,7 @@
 import { AuthService } from "./auth.service.js";
 import { HttpResponses } from "../../utils/httpResponses.js";
+import jwt from "jsonwebtoken";
+import { env } from "../../config/env.js";
 
 const response = new HttpResponses();
 
@@ -15,6 +17,35 @@ export class AuthController {
             response.success(res, 201, {
                 success: true,
                 message: "You're register successfully",
+                user: {
+                    id: user._id.toString(),
+                    name: user.name,
+                    email: user.email
+                }
+            });
+        } catch(error) {
+            next(error);
+        }
+    }
+
+    /**
+     * Login
+     * @POST Method
+     */
+    static login = async (req, res, next) => {
+        try {
+            const user = await AuthService.login(req.body);
+
+            const token = jwt.sign(
+                { userId: user._id.toString(), role: user.role },
+                env.jwt_secret,
+                { expiresIn: "1h"}
+            );
+
+            response.success(res, 200, {
+                success: true,
+                message: "You're login successfully",
+                token,
                 user: {
                     id: user._id.toString(),
                     name: user.name,

@@ -18,3 +18,17 @@ export const registerValidation = (req, res, next) => {
 
     next();
 }
+
+export const loginValidation = (req, res, next) => {
+    const { email, password } = req.body;
+
+    if(!email || !password) {
+        return next(new APPError("Email and password required", 400));
+    }
+
+    if(typeof email !== "string" || typeof password !== "string") {
+        return next(new APPError("Email or password invalid", 400));
+    }
+
+    next();
+}

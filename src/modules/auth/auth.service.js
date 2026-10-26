@@ -1,5 +1,6 @@
 import User from "../../models/user.model.js";
 import { APPError } from "../../utils/appError.js";
+import bcrypt from "bcrypt";
 
 export class AuthService {
     static register = async (data) => {
@@ -22,5 +23,25 @@ export class AuthService {
         });
 
         return user;
-    }   
+    }
+
+    static login = async (data) => {
+        const { email, password } = data;
+
+        const user = await User.findOne({
+            email: email.trim().toLowerCase()
+        });
+
+        if(!user) {
+            throw new APPError("Password or Email invalid", 401);
+        }
+
+        const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+        if(!isPasswordCorrect) {
+            throw new APPError("Password or Email invalid", 401);
+        }
+
+        return user;
+    }
 }
