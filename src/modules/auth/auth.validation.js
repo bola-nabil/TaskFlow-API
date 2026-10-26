@@ -13,7 +13,7 @@ export const registerValidation = (req, res, next) => {
     }
 
     if(password.length < 8) {
-        return next(new APPError("Password must be 8 chartactars at least"));
+        return next(new APPError("Password must be 8 chartactars at least", 400));
     }
 
     next();

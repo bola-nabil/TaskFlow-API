@@ -1,5 +1,5 @@
-import User from "../../models/user.model"
-import { APPError } from "../../utils/appError/js";
+import User from "../../models/user.model.js";
+import { APPError } from "../../utils/appError.js";
 
 export class AuthService {
     static register = async (data) => {
