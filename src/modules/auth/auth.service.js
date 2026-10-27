@@ -72,4 +72,10 @@ export class AuthService {
 
         return updatePassword;
     }
+
+    static show = async (id) => {
+        const { userId } = id;
+
+        return await User.findById(userId).select("name email");
+    }
 }
