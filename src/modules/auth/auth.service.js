@@ -101,4 +101,16 @@ export class AuthService {
 
         return await User.findByIdAndDelete(userId);
     }
+
+    static showById = async (id) => {
+        const { userId } = id;
+
+        const profile =  await User.findById(userId).select("name email");
+
+        if(!profile) {
+            throw new APPError("Profile not found", 404);
+        }
+
+        return profile;
+    }
 }
