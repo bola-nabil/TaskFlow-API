@@ -107,4 +107,21 @@ export class AuthController {
             next(error);
         }
     }
+
+    /**
+     * Delete profile
+     * @DELETE Method
+     */
+    static deleteProfile = async (req, res, next) => {
+        try {
+            await AuthService.delete(req.user);
+
+            response.success(res, 200, {
+                success: true,
+                message: "Your profile deleted successfully"
+            });
+        } catch(error) {
+            next(error);
+        }
+    }
 }
