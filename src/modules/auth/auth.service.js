@@ -95,4 +95,10 @@ export class AuthService {
             }
         ).select("name email");
     }
+
+    static delete = async (id) => {
+        const { userId } = id;
+
+        return await User.findByIdAndDelete(userId);
+    }
 }
