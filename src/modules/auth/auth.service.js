@@ -49,7 +49,7 @@ export class AuthService {
         const { currentPassword, newPassword } = data;
         const { userId } = id;
 
-        const user = await User.findById(userId);
+        const user = await User.findById(userId).select("+password");
 
         const isPasswordCorrect = await bcrypt.compare(currentPassword, user.password);
 
