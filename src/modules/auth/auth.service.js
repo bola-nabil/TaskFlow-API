@@ -30,7 +30,7 @@ export class AuthService {
 
         const user = await User.findOne({
             email: email.trim().toLowerCase()
-        });
+        }).select("+password");
 
         if(!user) {
             throw new APPError("Password or Email invalid", 401);
