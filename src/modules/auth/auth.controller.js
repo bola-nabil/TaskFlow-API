@@ -59,7 +59,7 @@ export class AuthController {
 
     /**
      * Change Password
-     * @PATCH
+     * @PATCH Method
      */
     static changePassword = async (req, res, next) => {
         try {
@@ -76,7 +76,7 @@ export class AuthController {
 
     /**
      * Show my profile
-     * @GET
+     * @GET Method
      */
     static showProfile = async (req, res, next) => {
         try {
