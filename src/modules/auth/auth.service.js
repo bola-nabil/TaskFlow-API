@@ -44,4 +44,32 @@ export class AuthService {
 
         return user;
     }
+
+    static changePassowrd = async (data, id) => {
+        const { currentPassword, newPassword } = data;
+        const { userId } = id;
+
+        const user = await User.findById(userId);
+
+        const isPasswordCorrect = await bcrypt.compare(currentPassword, user.password);
+
+        if(!isPasswordCorrect) {
+            throw new APPError("Your password is incorrect", 400);
+        }
+
+        const hashedNewPassword = await bcrypt.hash(newPassword, 12);
+
+        const updatePassword = await User.findByIdAndUpdate(
+            userId,
+            {
+                password: hashedNewPassword
+            },
+            {
+                returnDocument: "after",
+                runValidators: true
+            }
+        );
+
+        return updatePassword;
+    }
 }
