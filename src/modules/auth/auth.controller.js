@@ -83,7 +83,7 @@ export class AuthController {
             const profile = await AuthService.show(req.user);
 
             response.success(res, 200, {
-                success: "message",
+                success: true,
                 data: profile
             });
         } catch(error) {
