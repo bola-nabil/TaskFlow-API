@@ -90,4 +90,21 @@ export class AuthController {
             next(error);
         }
     }
+
+    /**
+     * Update profile details
+     * @PATCH Method
+     */
+    static updateProfile = async (req, res, next) => {
+        try {
+            const profile = await AuthService.update(req.user, req.body);
+
+            response.success(res, 200, {
+                success: true,
+                data: profile
+            });
+        } catch(error) {
+            next(error);
+        }
+    }
 }
