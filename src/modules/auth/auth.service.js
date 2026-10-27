@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 
 export class AuthService {
     static register = async (data) => {
-        const { name, email, password, role } = data;
+        const { name, email, password } = data;
 
         const normilzeEmail = email.trim().toLowerCase();
         const existEmail = await User.findOne({
