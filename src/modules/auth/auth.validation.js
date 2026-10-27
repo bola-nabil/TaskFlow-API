@@ -32,3 +32,33 @@ export const loginValidation = (req, res, next) => {
 
     next();
 }
+
+export const changePasswordValidation = (req, res, next) => {
+    const { currentPassword, newPassword, confirmPassword } = req.body;
+
+    if(!currentPassword || !newPassword || !confirmPassword) {
+        return next(new APPError("Current, new and confirm password required", 400));
+    }
+
+    if(typeof currentPassword !== "string") {
+        return next(new APPError("Current password invalid", 400));
+    }
+
+    if(typeof newPassword !== "string") {
+        return next(new APPError("New password invalid", 400));
+    }
+
+    if(typeof confirmPassword !== "string") {
+        return next(new APPError("Confirm password invalid", 400));
+    }
+
+    if(newPassword.length < 8) {
+        return next(new APPError("Password must be 8 chartactars at least", 400));
+    }
+
+    if(newPassword !== confirmPassword) {
+        return next(new APPError("Password not match", 400));
+    }
+
+    next();
+}
