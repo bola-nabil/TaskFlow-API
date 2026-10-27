@@ -2,6 +2,7 @@ import express from "express";
 import { 
  registerValidation,
  loginValidation,
+ updateProfileValidation,
  changePasswordValidation
 }
 from "./auth.validation.js";
@@ -13,6 +14,7 @@ const authRouter = express.Router();
 authRouter.post("/register", registerValidation, AuthController.register);
 authRouter.post("/login", loginValidation, AuthController.login);
 authRouter.get("/me", authMiddleware, AuthController.showProfile);
+authRouter.patch("/me", authMiddleware, updateProfileValidation, AuthController.updateProfile);
 authRouter.patch(
     "/change-password",
     authMiddleware, changePasswordValidation, AuthController.changePassword
