@@ -124,4 +124,21 @@ export class AuthController {
             next(error);
         }
     }
+
+    /**
+     * Show public profile by ID
+     * @GET Method
+     */
+    static showProfileById = async(req, res, next) => {
+        try {
+            const profile = await AuthService.showById(req.params);
+
+            response.success(res, 200, {
+                success: true,
+                data: profile
+            });
+        } catch(error) {
+            next(error);
+        }
+    }
 }
