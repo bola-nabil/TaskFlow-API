@@ -73,4 +73,21 @@ export class AuthController {
             next(error);
         }
     }
+
+    /**
+     * Show my profile
+     * @GET
+     */
+    static showProfile = async (req, res, next) => {
+        try {
+            const profile = await AuthService.show(req.user);
+
+            response.success(res, 200, {
+                success: "message",
+                data: profile
+            });
+        } catch(error) {
+            next(error);
+        }
+    }
 }
