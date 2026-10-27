@@ -56,4 +56,21 @@ export class AuthController {
             next(error);
         }
     }
+
+    /**
+     * Change Password
+     * @PATCH
+     */
+    static changePassword = async (req, res, next) => {
+        try {
+            await AuthService.changePassowrd(req.body, req.user);
+
+            response.success(res, 200, {
+                success: true,
+                message: "Password changed successfully"
+            });
+        } catch(error) {
+            next(error);
+        }
+    }
 }
