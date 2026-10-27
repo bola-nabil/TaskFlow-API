@@ -16,6 +16,7 @@ authRouter.post("/login", loginValidation, AuthController.login);
 authRouter.get("/me", authMiddleware, AuthController.showProfile);
 authRouter.patch("/me", authMiddleware, updateProfileValidation, AuthController.updateProfile);
 authRouter.delete("/me", authMiddleware, AuthController.deleteProfile);
+authRouter.get("/:userId", authMiddleware, AuthController.showProfileById);
 authRouter.patch(
     "/change-password",
     authMiddleware, changePasswordValidation, AuthController.changePassword
