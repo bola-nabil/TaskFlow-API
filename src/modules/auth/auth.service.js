@@ -78,4 +78,21 @@ export class AuthService {
 
         return await User.findById(userId).select("name email");
     }
+
+    static update = async (id, data) => {
+        const { userId } = id;
+        const { name, email } = data;
+
+        return await await User.findByIdAndUpdate(
+            userId,
+            {
+                name,
+                email
+            },
+            {
+                returnDocument: "after",
+                runValidators: true
+            }
+        ).select("name email");
+    }
 }
