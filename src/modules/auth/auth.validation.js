@@ -62,3 +62,21 @@ export const changePasswordValidation = (req, res, next) => {
 
     next();
 }
+
+export const updateProfileValidation = (req, res, next) => {
+    const { name, email } = req.body;
+
+    if(!name || !email) {
+        return next(new APPError("Name and email required", 400));
+    }
+
+    if(typeof name !== "string") {
+        return next(new APPError("Invalid name input", 400));
+    }
+
+    if(typeof email !== "string") {
+        return next(new APPError("Invalid email input", 400));
+    }
+
+    next();
+}
