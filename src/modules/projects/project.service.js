@@ -85,4 +85,51 @@ export class ProjectService {
 
         return project;
     }
+
+    static createMembers = async (id, data, userId) => {
+        const { members } = data;
+
+        const project = await Project.findById(id);
+
+        if (!project) {
+            throw new APPError("Project not found", 404);
+        }
+
+        if (project.owner.toString() !== userId.toString()) {
+            throw new APPError("You don't have permission", 403);
+        }
+
+        if (!Array.isArray(members) || members.length === 0) {
+            throw new APPError("Members must be a non-empty array", 400);
+        }
+
+        await existingUsers(members);
+
+        const existingMemberIds = new Set(
+            project.members.map(member => member.user.toString())
+        );
+
+        const hasDuplicate = members.some(member =>
+            existingMemberIds.has(member.user.toString())
+        );
+
+        if (hasDuplicate) {
+            throw new APPError("One or more users are already members", 400);
+        }
+
+        const updatedProject = await Project.findByIdAndUpdate(
+            id,
+            {
+                $push: {
+                    members: { $each: members }
+                }
+            },
+            {
+                returnDocument: "after",
+                runValidators: true
+            }
+        ).populate("members.user", "name email");
+
+        return updatedProject;
+    };
 }
