@@ -1,6 +1,6 @@
 import { APPError } from "../../utils/appError.js";
 
-export const createProjectValidation = (req, res, next) => {
+export const createAndUpdateProjectValidation = (req, res, next) => {
     const { title, description, members } = req.body;
 
     if(!title || !description || !members) {
@@ -24,6 +24,6 @@ export const createProjectValidation = (req, res, next) => {
     if (!roles.every(role => ["user", "admin"].includes(role))) {
         return next(new APPError("One or more roles not valid", 400));
     }
-    
+
     next();
 }
