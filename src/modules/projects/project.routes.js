@@ -8,5 +8,6 @@ const projectRouter = express.Router();
 projectRouter.use(authMiddleware);
 
 projectRouter.post("/", createProjectValidation, ProjectController.createProject);
+projectRouter.get("/", ProjectController.ownerProjects);
 
 export default projectRouter;
