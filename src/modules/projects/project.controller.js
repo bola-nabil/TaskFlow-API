@@ -109,4 +109,21 @@ export class ProjectController {
             next(error);
         }
     }
+
+    /**
+     * List project members
+     * @GET Method
+     */
+    static showMembers = async (req, res, next) => {
+        try {
+            const members = await ProjectService.showMembers(req.params.projectId);
+
+            response.success(res, 200, {
+                success: true,
+                data: members
+            });
+        } catch(error) {
+            next(error);
+        }
+    }
 }
