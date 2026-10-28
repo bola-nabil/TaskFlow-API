@@ -30,4 +30,15 @@ export class ProjectService {
             owner: id
         }).populate("members.user", "name email");
     }
+
+    static getById = async (id) => {
+        const project = await Project.findById(id)
+                                .populate("members.user", "name email");
+
+        if(!project) {
+            throw new APPError("Project not found", 404);
+        }
+
+        return project;
+    }
 }
