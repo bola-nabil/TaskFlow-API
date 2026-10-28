@@ -14,5 +14,6 @@ projectRouter.patch(
     "/:projectId",
     createAndUpdateProjectValidation, ProjectController.updateProject
 );
+projectRouter.delete("/:projectId", ProjectController.deleteProject);
 
 export default projectRouter;
