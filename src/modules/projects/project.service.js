@@ -24,4 +24,10 @@ export class ProjectService {
             members
         });
     }
+
+    static owner = async (id) => {
+        return await Project.find({
+            owner: id
+        }).populate("members.user", "name email");
+    }
 }
