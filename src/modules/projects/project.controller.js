@@ -37,4 +37,21 @@ export class ProjectController {
             next(error);
         }
     }
+
+    /**
+     * Get project details by id
+     * @GET Method
+     */
+    static projectByID = async (req, res, next) => {
+        try {
+            const project = await ProjectService.getById(req.params.projectId);
+
+            response.success(res, 200, {
+                success: true,
+                data: project
+            });
+        } catch(error) {
+            next(error);
+        }
+    }
 }
