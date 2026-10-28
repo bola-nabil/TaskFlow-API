@@ -54,4 +54,21 @@ export class ProjectController {
             next(error);
         }
     }
+
+    /**
+     * Update project details by id
+     * @PATCH Method
+     */
+    static updateProject = async (req, res, next) => {
+        try {
+            const project = await ProjectService.update(req.params.projectId, req.body);
+
+            response.success(res, 200, {
+                success: true,
+                data: project
+            });
+        } catch(error) {
+            next(error);
+        }
+    }
 }
