@@ -20,4 +20,21 @@ export class ProjectController {
             next(error);
         }
     }
+
+    /**
+     * Get projects accessible to me
+     * @GET Method
+     */
+    static ownerProjects = async (req, res, next) => {
+        try {
+             const projects = await ProjectService.owner(req.user.userId);
+
+             response.success(res, 200, {
+                success: true,
+                data: projects
+             });
+        } catch(error) {
+            next(error);
+        }
+    }
 }
