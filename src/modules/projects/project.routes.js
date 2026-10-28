@@ -9,5 +9,6 @@ projectRouter.use(authMiddleware);
 
 projectRouter.post("/", createProjectValidation, ProjectController.createProject);
 projectRouter.get("/", ProjectController.ownerProjects);
+projectRouter.get("/:projectId", ProjectController.projectByID);
 
 export default projectRouter;
