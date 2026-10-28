@@ -22,5 +22,6 @@ projectRouter.post(
     "/:projectId/members",
     createMembersValidation, ProjectController.createMembers
 );
+projectRouter.get("/:projectId/members", ProjectController.showMembers);
 
 export default projectRouter;
