@@ -75,4 +75,14 @@ export class ProjectService {
 
         return project;
     }
+
+    static delete = async (id) => {
+        const project = await Project.findByIdAndDelete(id);
+
+        if(!project) {
+            throw new APPError("Project not found", 404);
+        }
+
+        return project;
+    }
 }
