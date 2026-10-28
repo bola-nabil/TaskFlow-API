@@ -88,4 +88,25 @@ export class ProjectController {
             next(error);
         }
     }
+
+    /**
+     * Add a project member
+     * @POST Method
+     */
+    static createMembers = async (req, res, next) => {
+        try {
+            const project = await ProjectService.createMembers(
+                req.params.projectId,
+                req.body,
+                req.user.userId
+            );
+
+            response.success(res, 201, {
+                success: true,
+                data: project
+            });
+        } catch(error) {
+            next(error);
+        }
+    }
 }
