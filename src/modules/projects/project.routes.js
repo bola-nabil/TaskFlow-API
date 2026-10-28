@@ -1,7 +1,10 @@
 import express from "express";
 import { authMiddleware } from "../../middlewares/auth.middleware.js";
 import { ProjectController } from "./project.controller.js";
-import { createAndUpdateProjectValidation } from "./project.validation.js";
+import {
+     createAndUpdateProjectValidation,
+     createMembersValidation
+} from "./project.validation.js";
 
 const projectRouter = express.Router();
 
@@ -15,5 +18,9 @@ projectRouter.patch(
     createAndUpdateProjectValidation, ProjectController.updateProject
 );
 projectRouter.delete("/:projectId", ProjectController.deleteProject);
+projectRouter.post(
+    "/:projectId/members",
+    createMembersValidation, ProjectController.createMembers
+);
 
 export default projectRouter;
