@@ -132,4 +132,15 @@ export class ProjectService {
 
         return updatedProject;
     };
+
+    static showMembers = async (id) => {
+        const project = await Project.findById(id).select("members")
+                                        .populate("members.user", "name email");
+
+        if(!project) {
+            throw new APPError("Project not found", 404);
+        }
+
+        return project;
+    }
 }
