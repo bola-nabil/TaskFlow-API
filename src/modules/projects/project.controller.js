@@ -71,4 +71,21 @@ export class ProjectController {
             next(error);
         }
     }
+
+    /**
+     * Delete project by id
+     * @DELETE Method
+     */
+    static deleteProject = async (req, res, next) => {
+        try {
+            await ProjectService.delete(req.params.projectId);
+
+            response.success(res, 200, {
+                success: true,
+                message: "Your project deleted successfully"
+            });
+        } catch(error) {
+            next(error);
+        }
+    }
 }
