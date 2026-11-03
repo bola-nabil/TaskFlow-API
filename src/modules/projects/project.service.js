@@ -143,4 +143,39 @@ export class ProjectService {
 
         return project;
     }
+
+    
+    static updateMemberRole = async (projectId, memberId, data, userId) => {
+        const { role } = data;
+
+        if (!["user", "admin"].includes(role)) {
+            throw new APPError("Invalid member role", 400);
+        }
+
+        const project = await Project.findById(projectId);
+
+        if (!project) {
+            throw new APPError("Project not found", 404);
+        }
+
+        if (project.owner.toString() !== userId.toString()) {
+            throw new APPError("You don't have permission", 403);
+        }
+
+        const member = project.members.find(
+            member => member.user.toString() === memberId.toString()
+        );
+
+        if (!member) {
+            throw new APPError("Project member not found", 404);
+        }
+
+        member.role = role;
+
+        await project.save();
+
+        await project.populate("members.user", "name email");
+
+        return project;
+    };
 }
