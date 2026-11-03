@@ -23,5 +23,6 @@ projectRouter.post(
     createMembersValidation, ProjectController.createMembers
 );
 projectRouter.get("/:projectId/members", ProjectController.showMembers);
+projectRouter.patch("/:projectId/members/:userId", ProjectController.updateMemberRole);
 
 export default projectRouter;
