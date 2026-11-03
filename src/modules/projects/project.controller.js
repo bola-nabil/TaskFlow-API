@@ -126,4 +126,26 @@ export class ProjectController {
             next(error);
         }
     }
+
+    /**
+     * Change member role
+     * @PATCH Method
+     */
+    static updateMemberRole = async (req, res, next) => {
+        try {
+            const project = await ProjectService.updateMemberRole(
+                req.params.projectId,
+                req.params.userId,
+                req.body,
+                req.user.userId
+            );
+
+            response.success(res, 200, {
+                success: true,
+                data: project
+            });
+        } catch(error) {
+            next(error);
+        }
+    }
 }
