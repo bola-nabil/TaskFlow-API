@@ -24,5 +24,6 @@ projectRouter.post(
 );
 projectRouter.get("/:projectId/members", ProjectController.showMembers);
 projectRouter.patch("/:projectId/members/:userId", ProjectController.updateMemberRole);
+projectRouter.delete("/:projectId/members/:userId", ProjectController.removeMemberRole);
 
 export default projectRouter;
