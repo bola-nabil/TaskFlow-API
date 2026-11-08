@@ -148,4 +148,25 @@ export class ProjectController {
             next(error);
         }
     }
+
+    /**
+     * Remove member role
+     * @DElETE Method
+     */
+    static removeMemberRole = async (req, res, next) => {
+        try {
+            const project = await ProjectService.removeMember(
+                req.params.projectId,
+                req.params.userId,
+                req.user.userId
+            );
+
+            response.success(res, 200, {
+                success: true,
+                data: project
+            });
+        } catch(error) {
+            next(error);
+        }
+    }
 }
