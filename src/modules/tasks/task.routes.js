@@ -8,5 +8,6 @@ const taskRouter = express.Router();
 taskRouter.use(authMiddleware);
 
 taskRouter.post("/", createTaskValidation, TaskController.createTask);
+taskRouter.get("/", TaskController.getAllTasks);
 
 export default taskRouter;
