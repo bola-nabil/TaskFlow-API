@@ -20,4 +20,21 @@ export class TaskController {
             next(error);
         }
     }
+
+    /**
+     * List of all tasks
+     * @GET Method
+     */
+    static getAllTasks = async (req, res, next) => {
+        try {
+            const tasks = await TaskService.list();
+
+            response.success(res, 200, {
+                success: true,
+                data: tasks
+            });
+        } catch(error) {
+            next(error);
+        }
+    }
 }
