@@ -178,4 +178,30 @@ export class ProjectService {
 
         return project;
     };
+
+    static removeMember = async (projectId, memberId, userId) => {
+        const project = await Project.findById(projectId);
+
+        if (!project) {
+            throw new APPError("Project not found", 404);
+        }
+
+        if (project.owner.toString() !== userId) {
+            throw new APPError("Only the project owner can remove members", 403);
+        }
+
+        const memberExists = project.members.some(
+            member => member.user.toString() === memberId
+        );
+
+        if (!memberExists) {
+            throw new APPError("Member not found in this project", 404);
+        }
+
+        project.members.pull({ user: memberId });
+
+        await project.save();
+
+        return project;
+    };
 }
