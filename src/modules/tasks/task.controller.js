@@ -37,4 +37,21 @@ export class TaskController {
             next(error);
         }
     }
+
+    /**
+     * Get task by id
+     * @GET Method
+     */
+    static getTaskById = async (req, res, next) => {
+        try {
+            const task = await TaskService.getById(req.params.taskId);
+
+            response.success(res, 200, {
+                success: true,
+                data: task
+            });
+        } catch(error) {
+            next(error);
+        }
+    }
 }
