@@ -1,6 +1,6 @@
 import { APPError } from "../../utils/appError.js";
 
-export const createTaskValidation = (req, res, next) => {
+export const createAndUpdateTaskValidation = (req, res, next) => {
     const {
         title,
         description,
