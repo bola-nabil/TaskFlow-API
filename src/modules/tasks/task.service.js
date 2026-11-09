@@ -1,4 +1,5 @@
 import Task from "../../models/task.js";
+import { APPError } from "../../utils/appError.js";
 
 export class TaskService {
     static create = async (data) => {
@@ -15,6 +16,25 @@ export class TaskService {
         const task = await Task.findById(id)
                         .populate("project")
                         .populate("assignee", "name email");
+
+        if(!task) {
+            throw new APPError("Task not found", 404);
+        }
+
+        return task;
+    }
+
+    static update = async (id, data) => {
+        const task = await Task.findByIdAndUpdate(
+            id,
+            data,
+            {
+                returnDocument: "after",
+                runValidators: true
+            }
+        ).populate("project")
+         .populate("assignee", "name email");
+
 
         if(!task) {
             throw new APPError("Task not found", 404);
