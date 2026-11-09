@@ -9,5 +9,6 @@ taskRouter.use(authMiddleware);
 
 taskRouter.post("/", createTaskValidation, TaskController.createTask);
 taskRouter.get("/", TaskController.getAllTasks);
+taskRouter.get("/:taskId", TaskController.getTaskById);
 
 export default taskRouter;
