@@ -54,4 +54,21 @@ export class TaskController {
             next(error);
         }
     }
+
+    /**
+     * Update task by id
+     * @PATCH Method
+     */
+    static updateTask = async (req, res, next) => {
+        try {
+            const task = await TaskService.update(req.params.taskId, req.body);
+
+            response.success(res, 200, {
+                success: true,
+                data: task
+            });
+        } catch(error) {
+            next(error);
+        }
+    }
 }
