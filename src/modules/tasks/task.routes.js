@@ -11,5 +11,6 @@ taskRouter.post("/", createAndUpdateTaskValidation, TaskController.createTask);
 taskRouter.get("/", TaskController.getAllTasks);
 taskRouter.get("/:taskId", TaskController.getTaskById);
 taskRouter.patch("/:taskId", createAndUpdateTaskValidation, TaskController.updateTask);
+taskRouter.delete("/taskId", TaskController.deleteTask);
 
 export default taskRouter;
