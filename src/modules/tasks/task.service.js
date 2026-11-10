@@ -42,4 +42,14 @@ export class TaskService {
 
         return task;
     }
+
+    static delete = async (id) => {
+         const task = await Task.findByIdAndDelete(id);
+
+         if(!task) {
+            throw new APPError("Task not found", 404);
+         }
+
+         return task;
+    }
 }
