@@ -71,4 +71,21 @@ export class TaskController {
             next(error);
         }
     }
+
+    /**
+     * Delete task by id
+     * @DELETE Method
+     */
+    static deleteTask = async (req, res, next) => {
+        try {
+            await TaskService.delete(req.params.taskId);
+
+            response.success(res, 200, {
+                success: true,
+                message: "Your task deleted successfully"
+            });
+        } catch(error) {
+            next(error);
+        }
+    }
 }
