@@ -81,9 +81,5 @@ export const updateAssigneeValidation = (req, res, next) => {
         return next(new APPError("Assignee is required", 400));
     }
 
-    if(typeof assignee !== "string") {
-        return next(new APPError("Not valid Id", 400));
-    } 
-
     next();
 }
