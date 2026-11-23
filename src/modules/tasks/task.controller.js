@@ -88,4 +88,21 @@ export class TaskController {
             next(error);
         }
     }
+
+    /**
+     * Edit task status by id
+     * @PATCH Method
+     */
+    static editTaskStatus = async (req, res, next) => {
+        try {
+            const task = await TaskService.editStatus(req.params.taskId, req.body);
+
+            response.success(res, 200, {
+                success: true,
+                data: task
+            });
+        } catch(error) {
+            next(error);
+        }
+    }
 }
