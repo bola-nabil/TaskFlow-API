@@ -52,4 +52,21 @@ export class TaskService {
 
          return task;
     }
+
+    static editStatus = async (id, status) => {
+        const task = await Task.findByIdAndUpdate(
+            id,
+            status,
+            {
+                runValidators: true,
+                returnDocument: "after"
+            }
+        );
+
+        if(!task) {
+            throw new APPError("Task not found", 404);
+        }
+
+        return task;
+    }
 }
