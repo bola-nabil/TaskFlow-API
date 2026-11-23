@@ -72,3 +72,18 @@ export const updateStatusValidation = (req, res, next) => {
 
     next();
 }
+
+export const updateAssigneeValidation = (req, res, next) => {
+
+    const { assignee } = req.body;
+
+    if(!assignee) {
+        return next(new APPError("Assignee is required", 400));
+    }
+
+    if(typeof assignee !== "string") {
+        return next(new APPError("Not valid Id", 400));
+    } 
+
+    next();
+}
