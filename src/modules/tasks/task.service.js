@@ -1,4 +1,5 @@
-import Task from "../../models/task.js";
+import Task from "../../models/task.model.js";
+import User from "../../models/user.model.js";
 import { APPError } from "../../utils/appError.js";
 
 export class TaskService {
@@ -72,6 +73,12 @@ export class TaskService {
     }
 
     static updateAssignee = async (id, assignee) => {
+
+        const user = await User.findById(assignee._id);
+
+        if(!user) {
+            throw new APPError("User not found", 404);
+        }
         const task = await Task.findByIdAndUpdate(
             id,
             assignee,
@@ -81,6 +88,7 @@ export class TaskService {
             }
         ).populate("project")
          .populate("assignee", "name email");
+
 
         if(!task) {
             throw new APPError("Task not found", 404);
