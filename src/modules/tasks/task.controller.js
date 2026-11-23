@@ -105,4 +105,21 @@ export class TaskController {
             next(error);
         }
     }
+
+    /**
+     * 	Assign or unassign a user
+     * @PATCH Method
+     */
+    static updateAssignee = async (req, res, next) => {
+        try {
+            const task = await TaskService.updateAssignee(req.params.taskId, req.body);
+
+            response.success(res, 200, {
+                success: true,
+                data: task
+            });
+        } catch(error) {
+            next(error);
+        }
+    }
 }
