@@ -57,3 +57,18 @@ export const createAndUpdateTaskValidation = (req, res, next) => {
 
     next();
 }
+
+export const updateStatusValidation = (req, res, next) => {
+
+    const { status } = req.body;
+
+    if(!status) {
+        return next(APPError("Status is required", 400));
+    }
+
+    if(status !== "todo" && status !== "inprogress" && status !== "done") {
+        return next(new APPError("Status not valid choosed", 400));
+    }
+
+    next();
+}
