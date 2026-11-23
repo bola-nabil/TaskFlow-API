@@ -61,7 +61,26 @@ export class TaskService {
                 runValidators: true,
                 returnDocument: "after"
             }
-        );
+        ).populate("project")
+         .populate("assignee", "name email");;
+
+        if(!task) {
+            throw new APPError("Task not found", 404);
+        }
+
+        return task;
+    }
+
+    static updateAssignee = async (id, assignee) => {
+        const task = await Task.findByIdAndUpdate(
+            id,
+            assignee,
+            {
+                returnDocument: "after",
+                runValidators: true
+            }
+        ).populate("project")
+         .populate("assignee", "name email");
 
         if(!task) {
             throw new APPError("Task not found", 404);
