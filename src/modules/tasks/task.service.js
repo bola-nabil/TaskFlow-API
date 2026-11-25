@@ -1,16 +1,20 @@
 import Task from "../../models/task.model.js";
 import User from "../../models/user.model.js";
 import { APPError } from "../../utils/appError.js";
+import { pagination } from "../../utils/pagination.js";
 
 export class TaskService {
     static create = async (data) => {
         return await Task.create(data);
     }
 
-    static list = async () => {
+    static list = async (req) => {
+
+        const { page, limit, skip } = pagination(req);
         return await Task.find()
                 .populate("project")
-                .populate("assignee", "name email");
+                .populate("assignee", "name email")
+                .limit(limit).skip(skip);
     }
 
     static getById = async (id) => {
