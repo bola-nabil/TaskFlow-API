@@ -1,5 +1,6 @@
 import { TaskService } from "./task.service.js";
 import { HttpResponses } from "../../utils/httpResponses.js";
+import { pagination } from "../../utils/pagination.js";
 
 const response = new HttpResponses();
 
@@ -27,10 +28,13 @@ export class TaskController {
      */
     static getAllTasks = async (req, res, next) => {
         try {
-            const tasks = await TaskService.list();
+            const { page, limit } = pagination(req);
+            const tasks = await TaskService.list(req);
 
             response.success(res, 200, {
                 success: true,
+                page,
+                limit,                
                 data: tasks
             });
         } catch(error) {
